@@ -22,10 +22,10 @@ with open(d, 'rb') as f:
 
       while True:
         k += 1
-        f.seek(0x800 - 8, 1)
-        if f.read(8) == m:
-          f.seek(-(0x800 * k + 8), 1)
-          f.seek(12, 1)
+        f.seek(i + 0x800 * k, 0)
+
+        if f.read(8) == m or f.read(8) == b'':
+          f.seek(i + 12, 0)
           g = zlib.decompress(f.read(0x800 * k - 12))
           os.makedirs(o, exist_ok = True)
           with open(o + '/' + str(j) + '_' + str(hex(i)) + ex, 'wb') as n:
