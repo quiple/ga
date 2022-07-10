@@ -2,7 +2,6 @@
 
 import os
 import sys
-import zlib
 from pathlib import Path
 
 d = sys.argv[1]
