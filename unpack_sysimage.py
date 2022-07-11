@@ -6,7 +6,9 @@ from pathlib import Path
 
 d = sys.argv[1]
 o = Path(d).stem
-m = b'\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF'
+psb = b'PSB'
+gim = b'MIG.00.1PSP'
+at3 = b'RIFF'
 ex = '.bin'
 i = 0
 j = 0
@@ -19,9 +21,10 @@ with open(d, 'rb') as f:
 
     while True:
       k += 1
-      f.seek(i + 0x800 * k - 16, 0)
+      f.seek(i + 0x800 * k, 0)
+      m = f.read(16)
 
-      if f.read(16) == m:
+      if m.startswith(psb) or m.startswith(gim) or m.startswith(at3) or m == b'':
         f.seek(i, 0)
         g = f.read(0x800 * k)
         os.makedirs(o, exist_ok = True)
