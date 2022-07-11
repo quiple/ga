@@ -30,6 +30,9 @@ with open(d, 'rb') as f:
         os.makedirs(o, exist_ok = True)
         with open(o + '/' + str(j) + '_' + str(hex(i)) + ex, 'wb') as n:
           n.write(g)
+        if m.startswith(psb): ex = '.psb'
+        if m.startswith(gim): ex = '.gim'
+        if m.startswith(at3): ex = '.at3'
         print(o + '/' + str(j) + '_' + str(hex(i)) + ex)
         i += 0x800 * k
         break
