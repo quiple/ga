@@ -9,7 +9,6 @@ o = Path(d).stem
 psb = b'PSB'
 gim = b'MIG.00.1PSP'
 at3 = b'RIFF'
-ex = '.bin'
 i = 0
 j = 0
 
@@ -25,6 +24,7 @@ with open(d, 'rb') as f:
       m = f.read(16)
 
       if m.startswith(psb) or m.startswith(gim) or m.startswith(at3) or m == b'':
+        ex = '.bin'
         if m.startswith(psb): ex = '.psb'
         if m.startswith(gim): ex = '.gim'
         if m.startswith(at3): ex = '.at3'
