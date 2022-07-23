@@ -7,8 +7,13 @@ from pathlib import Path
 
 d = sys.argv[1]
 o = Path(d).stem
-m = b'\x00\xFF\x4D\x59\x5A\x49\x50\x00'
-ex = '.bin'
+m = b'\x00\xFFMYZIP'
+psb = b'PSB'
+gim = b'MIG.00.1PSP'
+at3 = b'RIFF'
+cnut = b'\xFA\xFARIQS'
+bmp = b'BM'
+phd = b'PPHD'
 i = 0
 j = 0
 
@@ -18,15 +23,22 @@ with open(d, 'rb') as f:
     k = 0
     f.seek(i, 0)
 
-    if f.read(8) == m:
+    if f.read(16).startswith(m):
 
       while True:
         k += 1
         f.seek(i + 0x800 * k, 0)
 
-        if f.read(8) == m or f.read(8) == b'':
+        if f.read(16).startswith(m) or f.read(16) == b'':
           f.seek(i + 12, 0)
           g = zlib.decompress(f.read(0x800 * k - 12))
+          ex = '.bin'
+          if g.startswith(psb): ex = '.psb'
+          if g.startswith(gim): ex = '.gim'
+          if g.startswith(at3): ex = '.at3'
+          if g.startswith(cnut): ex = '.cnut'
+          if g.startswith(bmp): ex = '.bmp'
+          if g.startswith(phd): ex = '.phd'
           os.makedirs(o, exist_ok = True)
           with open(o + '/' + str(j) + '_' + str(hex(i)) + ex, 'wb') as n:
             n.write(g)
