@@ -3,7 +3,7 @@ Python scripts for GA Geijutsuka Art Design Class: Slapstick Wonderland
 
 ## 사용법
 
-```
+```bat
 python unpack_myzip.py <파일명>
 python unpack_sysimage.py sysimage.bin
 ```
